@@ -19,8 +19,8 @@ window.CMS_DATA = {
             "url": "https://x.com/indirect_b"
         },
         {
-            "name": "Telegram",
-            "url": "https://t.me/Tek_tokyo"
+            "name": "Instagram",
+            "url": "https://www.instagram.com/indirect_dev"
         },
         {
             "name": "GitHub",
