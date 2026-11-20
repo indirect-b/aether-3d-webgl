@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AETHER // Generative 3D Dispersion & Quantum Particle Field</title>
-  <meta name="description" content="Interactive 3D WebGL experience featuring morphing glass torus knot with chromatic dispersion and 2,500 reactive GPU particles." />
-  <script type="module" crossorigin src="./assets/index-7vJv8znq.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BUXRjYFR.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AETHER // Active Theory Creative 3D WebGL Studio</title>
+  <meta name="description" content="Award-winning interactive digital experience featuring real-time WebGL, fluid ripple shaders, procedural Web Audio soundscape, and magnetic physics." />
+  <script type="module" crossorigin src="./assets/index-C_SEzqnR.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BTXQHm68.css">
 </head>
-<body>
+<body class="has-custom-cursor">
+  <!-- Viewport Technical Corner Brackets (Active Theory Signature) -->
+  <div class="hud-corners" aria-hidden="true">
+    <div class="corner-bracket top-left"></div>
+    <div class="corner-bracket top-right"></div>
+    <div class="corner-bracket bottom-left"></div>
+    <div class="corner-bracket bottom-right"></div>
+  </div>
+
   <div id="app">
     <!-- WebGL Canvas Background -->
     <canvas id="webgl-canvas"></canvas>
@@ -17,126 +25,185 @@
     <div class="ui-layer">
       <!-- Navigation Header -->
       <header class="nav-header">
-        <div class="brand">
+        <div class="brand" data-magnetic>
           <div class="brand-icon"></div>
-          <span class="brand-name">Aether<span>.lab</span></span>
+          <span class="brand-name">Aether<span>.AT</span></span>
         </div>
+
+        <!-- Technical World Clocks (Active Theory Standard) -->
+        <div class="hud-clocks">
+          <div class="clock-item">
+            <span class="clock-label">LAX</span>
+            <span class="clock-val" id="clock-lax">--:--</span>
+          </div>
+          <div class="clock-item">
+            <span class="clock-label">AMS</span>
+            <span class="clock-val" id="clock-ams">--:--</span>
+          </div>
+          <div class="clock-item">
+            <span class="clock-label">TYO</span>
+            <span class="clock-val" id="clock-tyo">--:--</span>
+          </div>
+        </div>
+
+        <!-- Telemetry & Sound Controls -->
         <div class="nav-meta">
+          <div class="cursor-coords" id="cursor-coords">
+            <span class="coord-label">POS</span>
+            <span class="coord-val">[+0.00, +0.00]</span>
+          </div>
+
+          <!-- Synthesized Ambient Sound Toggle -->
+          <button id="btn-sound" class="sound-toggle-btn" data-magnetic title="Toggle Generative Ambient Soundscape & SFX">
+            <div class="audio-bars" id="audio-bars">
+              <span class="bar bar-1"></span>
+              <span class="bar bar-2"></span>
+              <span class="bar bar-3"></span>
+              <span class="bar bar-4"></span>
+              <span class="bar bar-5"></span>
+            </div>
+            <span id="sound-label">SOUND // OFF</span>
+          </button>
+
           <div class="status-badge">
             <span class="status-dot"></span>
-            <span>THREE.JS r187 // WEBGL2</span>
+            <span id="fps-counter">60</span> FPS
           </div>
-          <span>TRANSMISSION 0.97</span>
-          <span>DISPERSION 5.0</span>
-          <span>FPS: <span id="fps-counter">60</span></span>
         </div>
       </header>
 
       <!-- Scroll Content driven by Lenis & GSAP -->
       <main class="scroll-content">
-        <!-- Section 1: Hero -->
+        <!-- Section 1: Hero (Aether / Fluid Introduction) -->
         <section class="section" data-section="0">
           <div class="section-inner">
-            <div class="tag-badge">EXP // 001 · OPTICAL TOPOLOGY</div>
-            <h1 class="hero-title">Refractive <br/><span class="gradient-text">Dispersion</span></h1>
+            <div class="tag-badge" data-magnetic>
+              <span class="pulse-indicator"></span>
+              <span>EXP // 001 · FLUID OPTICS</span>
+            </div>
+            <h1 class="hero-title">
+              Active <br/>
+              <span class="gradient-text">Theory</span>
+            </h1>
             <p class="lead-text">
-              An abstract 3D nexus crafted with physical transmission glass, procedural HDR caustics, and 2,500 quantum micro-particles guided by curl vector fields.
+              We blend story, art & technology. An immersive digital frontier powered by custom GLSL fluid ripple shaders, generative Web Audio synthesis, and 2,500 quantum nodes.
             </p>
             <div class="cards-grid">
-              <div class="glass-card">
-                <div class="card-num">// 01</div>
+              <div class="glass-card" data-magnetic>
+                <div class="card-num">// OPTIC_IOR</div>
                 <div class="card-val">1.450</div>
-                <div class="card-label">Refractive Index (IOR)</div>
+                <div class="card-label">Dynamic Refractive Caustics</div>
               </div>
-              <div class="glass-card">
-                <div class="card-num">// 02</div>
-                <div class="card-val">5.00</div>
-                <div class="card-label">Chromatic Dispersion</div>
+              <div class="glass-card" data-magnetic>
+                <div class="card-num">// DISPERSION</div>
+                <div class="card-val">5.00λ</div>
+                <div class="card-label">Chromatic Abbe Spectral Split</div>
               </div>
             </div>
           </div>
-          <div class="scroll-indicator">
+
+          <div class="scroll-indicator" data-magnetic>
             <div class="mouse-icon">
               <div class="mouse-wheel"></div>
             </div>
-            <span>Scroll to deform topology</span>
+            <span>[ SCROLL TO EXPLORE ARCHITECTURE ]</span>
           </div>
         </section>
 
-        <!-- Section 2: Morphology (Right Aligned) -->
+        <!-- Section 2: Morphology (Right Aligned — Kinetic Deformation) -->
         <section class="section align-right" data-section="1">
           <div class="section-inner">
-            <div class="tag-badge">MORPHOLOGY // 02</div>
-            <h2 class="section-title">Kinetic Glass <br/><span class="gradient-text">Deformation</span></h2>
+            <div class="tag-badge" data-magnetic>
+              <span>02 // MORPHOLOGY</span>
+            </div>
+            <h2 class="section-title">
+              Kinetic Glass <br/>
+              <span class="gradient-text">Deformation</span>
+            </h2>
             <p class="lead-text">
-              The high-resolution torus knot continuously breathes through 3-layer simplex vertex displacement, twisting along its symmetry axis as physical normals refract surrounding caustics in real time.
+              High-resolution non-Euclidean torus knot twisting along symmetry axes. Continuous Simplex FBM displacement calculates surface normals and transmits surrounding HDR caustics in real time.
             </p>
             <div class="cards-grid">
-              <div class="glass-card">
+              <div class="glass-card" data-magnetic>
                 <div class="card-num">ROUGHNESS</div>
                 <div class="card-val">0.05</div>
-                <div class="card-label">Polished optic finish</div>
+                <div class="card-label">Polished Glass Specular</div>
               </div>
-              <div class="glass-card">
+              <div class="glass-card" data-magnetic>
                 <div class="card-num">IRIDESCENCE</div>
                 <div class="card-val">100%</div>
-                <div class="card-label">Thin-film rainbow rim</div>
+                <div class="card-label">Thin-Film Thin Layer Glow</div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 3: Particle Swarm -->
+        <!-- Section 3: Swarm & Fluid Vortices -->
         <section class="section" data-section="2">
           <div class="section-inner">
-            <div class="tag-badge">SWARM FIELD // 03</div>
-            <h2 class="section-title">2,500 Quantum <br/><span class="gradient-text">Micro-Nodes</span></h2>
+            <div class="tag-badge" data-magnetic>
+              <span>03 // VECTOR FIELD</span>
+            </div>
+            <h2 class="section-title">
+              2,500 Quantum <br/>
+              <span class="gradient-text">Micro-Nodes</span>
+            </h2>
             <p class="lead-text">
-              Each micro-particle executes GPU-accelerated Brownian motion in 3D space. As you move your cursor, an invisible 3D projection plane computes tangential swirl vortices and gentle gravitational draw.
+              Hover to trigger fluid ripples and watch the quantum swarm execute divergence-free Curl noise motion. Notice the continuous spectral shift across the visible color spectrum.
             </p>
             <div class="cards-grid">
-              <div class="glass-card">
+              <div class="glass-card" data-magnetic>
                 <div class="card-num">NODES</div>
                 <div class="card-val">2.5K</div>
                 <div class="card-label">GPU Point Sprites</div>
               </div>
-              <div class="glass-card">
-                <div class="card-num">DYNAMICS</div>
+              <div class="glass-card" data-magnetic>
+                <div class="card-num">PHYSICS</div>
                 <div class="card-val">Curl</div>
-                <div class="card-label">Divergence-free swirl</div>
+                <div class="card-label">Divergence-free Swirl</div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 4: Immersion / Outro (Center Aligned) -->
+        <!-- Section 4: Immersion & Case Studies (Center Aligned) -->
         <section class="section align-center" data-section="3">
           <div class="section-inner">
-            <div class="tag-badge">INTERACTION // 04</div>
-            <h2 class="hero-title" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">Boundless <span class="gradient-text">Immersion</span></h2>
+            <div class="tag-badge" data-magnetic>
+              <span>04 // CONVERGENCE</span>
+            </div>
+            <h2 class="hero-title" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">
+              Interactive <br/>
+              <span class="gradient-text">Immersion</span>
+            </h2>
             <p class="lead-text">
-              Freely orbit the camera with mouse drag, hover to deflect the quantum cloud, and explore the convergence of mathematics, physics, and generative art.
+              Click and drag to freely orbit the camera. Move your cursor to generate fluid ripples across the post-processing buffer, and toggle ambient synthesis.
             </p>
+            <div class="interactive-prompt-pills">
+              <span class="pill">[ DRAG CANVAS ]</span>
+              <span class="pill">[ MOVE MOUSE // FLUID RIPPLE ]</span>
+              <span class="pill">[ ACTIVATE AUDIO ]</span>
+            </div>
           </div>
         </section>
       </main>
 
       <!-- Floating Interactive Controls Dock -->
       <nav class="floating-dock">
-        <button id="btn-bloom" class="dock-btn active" title="Toggle HDR Bloom Pass">
+        <button id="btn-bloom" class="dock-btn active" data-magnetic title="Toggle HDR Bloom Pass">
           <span>✨</span>
           <span>Bloom</span>
         </button>
-        <button id="btn-wireframe" class="dock-btn" title="Toggle Glass Wireframe">
+        <button id="btn-wireframe" class="dock-btn" data-magnetic title="Toggle Glass Wireframe Topology">
           <span>📐</span>
           <span>Wireframe</span>
         </button>
         <div class="dock-separator"></div>
-        <button id="btn-palette" class="dock-btn" title="Switch Color Palette">
+        <button id="btn-palette" class="dock-btn" data-magnetic title="Switch Spectral Color Palette">
           <span>🎨</span>
           <span id="palette-label">Cyan/Violet</span>
         </button>
-        <button id="btn-reset-cam" class="dock-btn" title="Reset Camera Perspective">
+        <button id="btn-reset-cam" class="dock-btn" data-magnetic title="Reset Camera Perspective">
           <span>↺</span>
           <span>Reset</span>
         </button>
