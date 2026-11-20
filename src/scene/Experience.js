@@ -144,6 +144,12 @@ export default class Experience {
     }
   }
 
+  setScrollVelocity(vel) {
+    if (this.postProcessing) {
+      this.postProcessing.setScrollVelocity(vel);
+    }
+  }
+
   cyclePalette() {
     this.paletteIndex = (this.paletteIndex + 1) % PALETTES.length;
     const pal = PALETTES[this.paletteIndex];

@@ -4,14 +4,16 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
+import fluidShader from '../shaders/postprocessing/fluidDistortion.glsl';
 import filmGrainShader from '../shaders/postprocessing/filmGrain.glsl';
 
 /**
- * Modern EffectComposer post-processing pipeline:
- *  1. RenderPass — renders base scene into HalfFloatType HDR buffer
- *  2. UnrealBloomPass — subtle, ethereal glow on caustics and glowing particles
- *  3. FilmGrainPass — custom time-animated film grain with luminance weighting
- *  4. OutputPass — official Three.js tone-mapping (ACES Filmic) and sRGB color space conversion
+ * Active Theory Post-Processing Pipeline:
+ *  1. RenderPass — Base HalfFloat HDR scene
+ *  2. UnrealBloomPass — Specular caustic glow
+ *  3. FluidDistortionPass — Liquid mouse ripple trail & chromatic aberration
+ *  4. FilmGrainPass — Time-animated micro film grain with vignette
+ *  5. OutputPass — ACES Filmic tone mapping & sRGB output
  */
 export default class PostProcessing {
   constructor(experience) {
@@ -25,11 +27,18 @@ export default class PostProcessing {
     this.enabled = true;
     this.bloomEnabled = true;
 
+    // Mouse velocity & position tracking for fluid ripples
+    this.mouse = new THREE.Vector2(0.5, 0.5);
+    this.prevMouse = new THREE.Vector2(0.5, 0.5);
+    this.targetVelocity = 0;
+    this.velocity = 0;
+    this.scrollVelocity = 0;
+
     this._setupComposer();
+    this._bindEvents();
   }
 
   _setupComposer() {
-    // Render target with half-float for HDR bloom & smooth gradient handling
     const renderTarget = new THREE.WebGLRenderTarget(
       this.sizes.width,
       this.sizes.height,
@@ -41,26 +50,48 @@ export default class PostProcessing {
 
     this.composer = new EffectComposer(this.renderer.instance, renderTarget);
 
-    // 1. Render Pass
+    // 1. Base Scene Pass
     const renderPass = new RenderPass(this.scene, this.camera.instance);
     this.composer.addPass(renderPass);
 
     // 2. Subtle Unreal Bloom Pass
     this.bloomPass = new UnrealBloomPass(
       new THREE.Vector2(this.sizes.width, this.sizes.height),
-      0.35,  // subtle strength
+      0.35,  // strength
       0.55,  // radius
-      0.82   // threshold — only high-luminance elements glow
+      0.82   // threshold
     );
     this.composer.addPass(this.bloomPass);
 
-    // 3. Custom Film Grain Shader Pass
+    // 3. Active Theory Fluid Distortion & Liquid Ripple Pass
+    this.fluidPass = new ShaderPass({
+      uniforms: {
+        tDiffuse:        { value: null },
+        uMouse:          { value: new THREE.Vector2(0.5, 0.5) },
+        uPrevMouse:      { value: new THREE.Vector2(0.5, 0.5) },
+        uVelocity:       { value: 0 },
+        uScrollVelocity: { value: 0 },
+        uTime:           { value: 0 },
+        uAspect:         { value: this.sizes.aspect },
+      },
+      vertexShader: /* glsl */ `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: fluidShader,
+    });
+    this.composer.addPass(this.fluidPass);
+
+    // 4. Custom Film Grain & Vignette Pass
     this.filmGrainPass = new ShaderPass({
       uniforms: {
         tDiffuse:   { value: null },
         uTime:      { value: 0 },
-        uIntensity: { value: 0.055 }, // fine, filmic texture
-        uVignette:  { value: 0.9 },   // subtle edge darkening
+        uIntensity: { value: 0.05 },
+        uVignette:  { value: 0.9 },
       },
       vertexShader: /* glsl */ `
         varying vec2 vUv;
@@ -73,9 +104,30 @@ export default class PostProcessing {
     });
     this.composer.addPass(this.filmGrainPass);
 
-    // 4. Output Pass (sRGB and Tone Mapping)
+    // 5. Output Pass
     const outputPass = new OutputPass();
     this.composer.addPass(outputPass);
+  }
+
+  _bindEvents() {
+    window.addEventListener('mousemove', (e) => {
+      // UV coordinates: [0, 1] with Y flipped for GLSL
+      const uvX = e.clientX / this.sizes.width;
+      const uvY = 1.0 - e.clientY / this.sizes.height;
+
+      const deltaX = uvX - this.mouse.x;
+      const deltaY = uvY - this.mouse.y;
+      const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      this.targetVelocity = Math.min(dist * 25.0, 1.8);
+
+      this.prevMouse.copy(this.mouse);
+      this.mouse.set(uvX, uvY);
+    });
+  }
+
+  setScrollVelocity(vel) {
+    this.scrollVelocity = Math.min(Math.max(vel * 0.02, -1.5), 1.5);
   }
 
   toggleBloom() {
@@ -88,11 +140,31 @@ export default class PostProcessing {
     this.composer.setSize(this.sizes.width, this.sizes.height);
     this.composer.setPixelRatio(this.sizes.pixelRatio);
     this.bloomPass.resolution.set(this.sizes.width, this.sizes.height);
+    if (this.fluidPass) {
+      this.fluidPass.uniforms.uAspect.value = this.sizes.aspect;
+    }
   }
 
   update() {
+    const timeSec = this.time.elapsed * 0.001;
+
+    // Smoothly decay mouse ripple velocity
+    this.velocity += (this.targetVelocity - this.velocity) * 0.12;
+    this.targetVelocity *= 0.88;
+
+    // Decay scroll ripple velocity
+    this.scrollVelocity *= 0.92;
+
+    if (this.fluidPass) {
+      this.fluidPass.uniforms.uTime.value = timeSec;
+      this.fluidPass.uniforms.uMouse.value.copy(this.mouse);
+      this.fluidPass.uniforms.uPrevMouse.value.copy(this.prevMouse);
+      this.fluidPass.uniforms.uVelocity.value = this.velocity;
+      this.fluidPass.uniforms.uScrollVelocity.value = this.scrollVelocity;
+    }
+
     if (this.filmGrainPass) {
-      this.filmGrainPass.uniforms.uTime.value = this.time.elapsed * 0.001;
+      this.filmGrainPass.uniforms.uTime.value = timeSec;
     }
 
     if (this.enabled) {

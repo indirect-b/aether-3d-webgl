@@ -11,13 +11,13 @@
 :root {
   --bg-color: #050508;
   --text-primary: #f5f5f7;
-  --text-secondary: rgba(245, 245, 247, 0.6);
+  --text-secondary: rgba(245, 245, 247, 0.65);
   --text-muted: rgba(245, 245, 247, 0.35);
   --accent-cyan: #00e5ff;
   --accent-violet: #a855f7;
   --glass-bg: rgba(18, 18, 28, 0.45);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(0, 229, 255, 0.3);
+  --glass-border-hover: rgba(0, 229, 255, 0.35);
 }
 
 html,
@@ -30,9 +30,90 @@ body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  selection-background-color: var(--accent-cyan);
-  selection-color: #000;
 }
+
+/* Custom Cursor Physics (Active Theory) */
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+.cursor-dot {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+  transition: transform 0.15s ease, background 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  background: rgba(0, 229, 255, 0.03);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              top 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              left 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              background 0.2s ease;
+  will-change: transform;
+}
+
+.custom-cursor.cursor-hover .cursor-ring {
+  width: 62px;
+  height: 62px;
+  top: -31px;
+  left: -31px;
+  border-color: rgba(0, 229, 255, 0.85);
+  background: rgba(0, 229, 255, 0.08);
+}
+
+.custom-cursor.cursor-down .cursor-ring {
+  transform: scale(0.85);
+}
+
+/* Technical Corner Brackets */
+.hud-corners {
+  position: fixed;
+  inset: 18px;
+  pointer-events: none;
+  z-index: 45;
+}
+
+.corner-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(255, 255, 255, 0.18);
+  border-style: solid;
+}
+
+.corner-bracket.top-left { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.corner-bracket.top-right { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.corner-bracket.bottom-left { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.corner-bracket.bottom-right { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
 
 /* Lenis smooth scroll classes */
 html.lenis,
@@ -81,12 +162,12 @@ html.lenis body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 40px;
+  padding: 22px 36px;
   z-index: 50;
   pointer-events: auto;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: linear-gradient(to bottom, rgba(5, 5, 8, 0.7) 0%, rgba(5, 5, 8, 0) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: linear-gradient(to bottom, rgba(5, 5, 8, 0.8) 0%, rgba(5, 5, 8, 0) 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
@@ -94,11 +175,12 @@ html.lenis body {
   display: flex;
   align-items: center;
   gap: 12px;
+  user-select: none;
 }
 
 .brand-icon {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: var(--accent-cyan);
   box-shadow: 0 0 16px var(--accent-cyan);
@@ -113,7 +195,7 @@ html.lenis body {
 .brand-name {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #fff;
@@ -123,14 +205,110 @@ html.lenis body {
   color: var(--accent-cyan);
 }
 
+/* Technical World Clocks (Active Theory) */
+.hud-clocks {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.clock-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clock-label {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.clock-val {
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+}
+
 .nav-meta {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
-  letter-spacing: 0.05em;
+}
+
+.cursor-coords {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.coord-label {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.coord-val {
+  color: var(--accent-cyan);
+}
+
+/* Ambient Audio Toggle Button */
+.sound-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.sound-toggle-btn:hover {
+  border-color: var(--accent-cyan);
+  color: #fff;
+}
+
+.sound-toggle-btn.is-active {
+  background: rgba(0, 229, 255, 0.12);
+  border-color: rgba(0, 229, 255, 0.4);
+  color: var(--accent-cyan);
+}
+
+.audio-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+
+.audio-bars .bar {
+  width: 2px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 1px;
+  transition: height 0.2s ease;
+}
+
+.sound-toggle-btn.is-active .bar {
+  animation: barBounce 0.8s infinite ease-in-out alternate;
+}
+
+.sound-toggle-btn.is-active .bar-1 { animation-delay: 0.1s; }
+.sound-toggle-btn.is-active .bar-2 { animation-delay: 0.3s; }
+.sound-toggle-btn.is-active .bar-3 { animation-delay: 0.0s; }
+.sound-toggle-btn.is-active .bar-4 { animation-delay: 0.4s; }
+.sound-toggle-btn.is-active .bar-5 { animation-delay: 0.2s; }
+
+@keyframes barBounce {
+  0% { height: 3px; }
+  100% { height: 12px; }
 }
 
 .status-badge {
@@ -169,7 +347,7 @@ html.lenis body {
 }
 
 .section-inner {
-  max-width: 650px;
+  max-width: 640px;
   pointer-events: auto;
 }
 
@@ -181,7 +359,7 @@ html.lenis body {
 .section.align-center {
   justify-content: center;
   text-align: center;
-  max-width: 900px;
+  max-width: 880px;
   margin: 0 auto;
 }
 
@@ -191,7 +369,7 @@ html.lenis body {
   align-items: center;
   gap: 8px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -200,19 +378,29 @@ html.lenis body {
   border: 1px solid rgba(0, 229, 255, 0.2);
   padding: 6px 14px;
   border-radius: 999px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.pulse-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+  animation: pulseGlow 2s infinite ease-in-out;
 }
 
 .hero-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: clamp(3rem, 7vw, 6.2rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.04em;
   text-transform: uppercase;
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #ffffff 30%, rgba(255, 255, 255, 0.4) 100%);
+  background: linear-gradient(135deg, #ffffff 30%, rgba(255, 255, 255, 0.45) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -225,7 +413,7 @@ html.lenis body {
 
 .section-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -233,14 +421,14 @@ html.lenis body {
 }
 
 .lead-text {
-  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
   font-weight: 300;
   line-height: 1.65;
   color: var(--text-secondary);
   margin-bottom: 32px;
 }
 
-/* Glassmorphism Cards */
+/* Glassmorphism Cards with 3D Tilt & Specular Sheen */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -249,31 +437,44 @@ html.lenis body {
 }
 
 .glass-card {
+  position: relative;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  padding: 20px;
+  padding: 22px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass-card:hover {
   border-color: var(--glass-border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.card-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  mix-blend-mode: screen;
 }
 
 .card-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--accent-cyan);
   margin-bottom: 8px;
 }
 
 .card-val {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 4px;
@@ -285,6 +486,32 @@ html.lenis body {
   line-height: 1.4;
 }
 
+/* Interactive Prompt Pills */
+.interactive-prompt-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.interactive-prompt-pills .pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  transition: all 0.25s ease;
+}
+
+.interactive-prompt-pills .pill:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
 /* Scroll Indicator */
 .scroll-indicator {
   position: absolute;
@@ -294,7 +521,7 @@ html.lenis body {
   align-items: center;
   gap: 14px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -326,7 +553,7 @@ html.lenis body {
   100% { transform: translate(-50%, 12px); opacity: 0; }
 }
 
-/* Interactive Floating Controls Dock */
+/* Floating Controls Dock */
 .floating-dock {
   position: fixed;
   bottom: 28px;
@@ -336,7 +563,7 @@ html.lenis body {
   align-items: center;
   gap: 10px;
   padding: 8px 12px;
-  background: rgba(14, 14, 22, 0.7);
+  background: rgba(14, 14, 22, 0.72);
   border: 1px solid var(--glass-border);
   border-radius: 999px;
   backdrop-filter: blur(20px);
@@ -350,7 +577,7 @@ html.lenis body {
   border: 1px solid transparent;
   color: var(--text-secondary);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   padding: 8px 14px;
   border-radius: 999px;
   cursor: pointer;
@@ -379,18 +606,24 @@ html.lenis body {
 }
 
 /* Responsive adjustments */
+@media (max-width: 900px) {
+  .hud-clocks {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-header {
-    padding: 18px 24px;
+    padding: 16px 20px;
   }
-  .nav-meta {
+  .nav-meta .cursor-coords {
     display: none;
   }
   .section {
-    padding: 60px 24px;
+    padding: 60px 20px;
   }
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
   .floating-dock {
     bottom: 16px;
@@ -398,5 +631,12 @@ html.lenis body {
     left: 16px;
     justify-content: center;
     border-radius: 16px;
+  }
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: auto !important;
+  }
+  .custom-cursor {
+    display: none;
   }
 }
