@@ -34,6 +34,15 @@ export const PALETTES = [
 
 // Camera trajectory across the 4 full-viewport HTML sections
 const CAMERA_STAGES = [
+  // 01: HERO – overview
+  { pos: new THREE.Vector3(0, 0, 6.0),       target: new THREE.Vector3(0, 0, 0) },
+  // 02: WORK – project grid section
+  { pos: new THREE.Vector3(1.7, 0.35, 4.8),  target: new THREE.Vector3(0.3, 0, 0) },
+  // 03: ABOUT – studio information
+  { pos: new THREE.Vector3(-1.9, -0.4, 4.6), target: new THREE.Vector3(-0.3, 0, 0) },
+  // 04: CONTACT – inquiry & footer
+  { pos: new THREE.Vector3(0, 1.15, 3.85),   target: new THREE.Vector3(0, 0, 0) },
+];
   { pos: new THREE.Vector3(0, 0, 6.0),       target: new THREE.Vector3(0, 0, 0) },        // 01: Hero
   { pos: new THREE.Vector3(1.7, 0.35, 4.8),  target: new THREE.Vector3(0.3, 0, 0) },      // 02: Morphology
   { pos: new THREE.Vector3(-1.9, -0.4, 4.6), target: new THREE.Vector3(-0.3, 0, 0) },    // 03: Chromatics

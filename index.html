@@ -1,215 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>AETHER // Active Theory Creative 3D WebGL Studio</title>
-  <meta name="description" content="Award-winning interactive digital experience featuring real-time WebGL, fluid ripple shaders, procedural Web Audio soundscape, and magnetic physics." />
-  <link rel="stylesheet" href="/src/styles/main.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <base href="./">
+    <link href="https://activetheory.net" rel="canonical">
+    <title>Active Theory · Creative Digital Experiences</title>
+    <meta name="description" content="Founded in 2012. We blend story, art & technology as an in-house team of passionate makers. Our industry-leading web toolset consistently delivers award-winning work through quality & performance. ">
+    <meta property="og:url" content="https://activetheory.net">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Active Theory · Creative Digital Experiences">
+    <meta property="og:description" content="Founded in 2012. We blend story, art & technology as an in-house team of passionate makers. Our industry-leading web toolset consistently delivers award-winning work through quality & performance. ">
+    <meta property="og:image" content="https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://activetheory.net">
+    <meta property="twitter:title" content="Active Theory · Creative Digital Experiences">
+    <meta property="twitter:description" content="Founded in 2012. We blend story, art & technology as an in-house team of passionate makers. Our industry-leading web toolset consistently delivers award-winning work through quality & performance. ">
+    <meta property="twitter:image" content="https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg">
+    <meta name="apple-mobile-web-app-title" content="Active Theory">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16x16.png">
+	<link rel="manifest" href="assets/meta/manifest.json">
+	<link rel="mask-icon" href="assets/meta/safari-pinned-tab.svg" color="#333333">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="theme-color" content="#000000">
+    <style type="text/css">#Stage,body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;-ms-content-zooming:none;-ms-touch-action:none;touch-action:none;background:#000}@font-face{font-family:"nbarchitekt";src:url(assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff2)format("woff2"),url(assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.woff)format("woff"),url(assets/fonts/NBArchitektStd-Regular-export/NBArchitektStd-Regular.otf)format("opentype");font-style:normal;font-weight:400}@font-face{font-family:"nbarchitekt";src:url(assets/fonts/NBArchitektStd-Light-export/NBArchitektStd-Light.woff2)format("woff2"),url(assets/fonts/NBArchitektStd-Light-export/NBArchitektStd-Light.woff)format("woff"),url(assets/fonts/NBArchitektStd-Light-export/NBArchitektStd-Light.otf)format("opentype");font-style:normal;font-weight:300}@font-face{font-family:"nbarchitekt";src:url(assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff2)format("woff2"),url(assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.woff)format("woff"),url(assets/fonts/NBArchitektStd-Bold-export/NBArchitektStd-Bold.otf)format("opentype");font-style:normal;font-weight:700}.ios,.ios #Stage,.ios body{overflow:visible}.ios,.mob{position:relative;height:100vh}.GLA11y{position:absolute;width:0;height:100%;clip:rect(0 0 0 0);overflow:hidden}:root{--baropacity:0.0}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:0 0}::-webkit-scrollbar-thumb{background:rgba(255,255,255,var(--baropacity, 0.9));border-radius:10px}#Stage,#Stage *{user-select:none;-moz-user-select:none;-webkit-user-select:none;-o-user-select:none;-ms-user-select:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:none}#Stage *,#Stage ::after,#Stage ::before{box-sizing:border-box}#Stage * input,#Stage * textarea{-moz-user-select:auto;-webkit-user-select:auto;-o-user-select:auto;-ms-user-select:auto;-webkit-tap-highlight-color:auto}.feature-detects{visibility:hidden;pointer-events:none;position:absolute;width:0;height:100vh;clip:rect(0 0 0 0)}@supports (--css:variables) and (padding:env(safe-area-inset-bottom)){.feature-detects{--safe-area-inset-top:env(safe-area-inset-top);--safe-area-inset-right:env(safe-area-inset-right);--safe-area-inset-bottom:env(safe-area-inset-bottom);--safe-area-inset-left:env(safe-area-inset-left)}}</style>
+    <script src="assets/data/cms_data.js"></script>
+    <script>!function(){window._ENV_='production';window._CMS_="%CMS%";window._UNSUPPORTED_PAGE_="unsupported.html";try{eval("let obj = {}; obj?.prop")}catch(e){window.location.replace(window._UNSUPPORTED_PAGE_);return}window._CACHE_="1780406240914",window.UIL_STATIC_PATH="assets/data/uil.1780406240914.json";var p,s="assets/js/app."+window._CACHE_+".js",h=document.head,e=document.createElement("link");e.href=s,e.rel="preload",e.as="script",h.appendChild(e),(e=document.createElement("script")).src=s,e.async=!0,h.appendChild(e)}();</script>
 </head>
-<body class="has-custom-cursor">
-  <!-- Viewport Technical Corner Brackets (Active Theory Signature) -->
-  <div class="hud-corners" aria-hidden="true">
-    <div class="corner-bracket top-left"></div>
-    <div class="corner-bracket top-right"></div>
-    <div class="corner-bracket bottom-left"></div>
-    <div class="corner-bracket bottom-right"></div>
-  </div>
-
-  <div id="app">
-    <!-- WebGL Canvas Background -->
-    <canvas id="webgl-canvas"></canvas>
-
-    <!-- UI Overlay Layer -->
-    <div class="ui-layer">
-      <!-- Navigation Header -->
-      <header class="nav-header">
-        <div class="brand" data-magnetic>
-          <div class="brand-icon"></div>
-          <span class="brand-name">Aether<span>.AT</span></span>
-        </div>
-
-        <!-- Technical World Clocks (Active Theory Standard) -->
-        <div class="hud-clocks">
-          <div class="clock-item">
-            <span class="clock-label">LAX</span>
-            <span class="clock-val" id="clock-lax">--:--</span>
-          </div>
-          <div class="clock-item">
-            <span class="clock-label">AMS</span>
-            <span class="clock-val" id="clock-ams">--:--</span>
-          </div>
-          <div class="clock-item">
-            <span class="clock-label">TYO</span>
-            <span class="clock-val" id="clock-tyo">--:--</span>
-          </div>
-        </div>
-
-        <!-- Telemetry & Sound Controls -->
-        <div class="nav-meta">
-          <div class="cursor-coords" id="cursor-coords">
-            <span class="coord-label">POS</span>
-            <span class="coord-val">[+0.00, +0.00]</span>
-          </div>
-
-          <!-- Synthesized Ambient Sound Toggle -->
-          <button id="btn-sound" class="sound-toggle-btn" data-magnetic title="Toggle Generative Ambient Soundscape & SFX">
-            <div class="audio-bars" id="audio-bars">
-              <span class="bar bar-1"></span>
-              <span class="bar bar-2"></span>
-              <span class="bar bar-3"></span>
-              <span class="bar bar-4"></span>
-              <span class="bar bar-5"></span>
-            </div>
-            <span id="sound-label">SOUND // OFF</span>
-          </button>
-
-          <div class="status-badge">
-            <span class="status-dot"></span>
-            <span id="fps-counter">60</span> FPS
-          </div>
-        </div>
-      </header>
-
-      <!-- Scroll Content driven by Lenis & GSAP -->
-      <main class="scroll-content">
-        <!-- Section 1: Hero (Aether / Fluid Introduction) -->
-        <section class="section" data-section="0">
-          <div class="section-inner">
-            <div class="tag-badge" data-magnetic>
-              <span class="pulse-indicator"></span>
-              <span>EXP // 001 · FLUID OPTICS</span>
-            </div>
-            <h1 class="hero-title">
-              Active <br/>
-              <span class="gradient-text">Theory</span>
-            </h1>
-            <p class="lead-text">
-              We blend story, art & technology. An immersive digital frontier powered by custom GLSL fluid ripple shaders, generative Web Audio synthesis, and 2,500 quantum nodes.
-            </p>
-            <div class="cards-grid">
-              <div class="glass-card" data-magnetic>
-                <div class="card-num">// OPTIC_IOR</div>
-                <div class="card-val">1.450</div>
-                <div class="card-label">Dynamic Refractive Caustics</div>
-              </div>
-              <div class="glass-card" data-magnetic>
-                <div class="card-num">// DISPERSION</div>
-                <div class="card-val">5.00λ</div>
-                <div class="card-label">Chromatic Abbe Spectral Split</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="scroll-indicator" data-magnetic>
-            <div class="mouse-icon">
-              <div class="mouse-wheel"></div>
-            </div>
-            <span>[ SCROLL TO EXPLORE ARCHITECTURE ]</span>
-          </div>
-        </section>
-
-        <!-- Section 2: Morphology (Right Aligned — Kinetic Deformation) -->
-        <section class="section align-right" data-section="1">
-          <div class="section-inner">
-            <div class="tag-badge" data-magnetic>
-              <span>02 // MORPHOLOGY</span>
-            </div>
-            <h2 class="section-title">
-              Kinetic Glass <br/>
-              <span class="gradient-text">Deformation</span>
-            </h2>
-            <p class="lead-text">
-              High-resolution non-Euclidean torus knot twisting along symmetry axes. Continuous Simplex FBM displacement calculates surface normals and transmits surrounding HDR caustics in real time.
-            </p>
-            <div class="cards-grid">
-              <div class="glass-card" data-magnetic>
-                <div class="card-num">ROUGHNESS</div>
-                <div class="card-val">0.05</div>
-                <div class="card-label">Polished Glass Specular</div>
-              </div>
-              <div class="glass-card" data-magnetic>
-                <div class="card-num">IRIDESCENCE</div>
-                <div class="card-val">100%</div>
-                <div class="card-label">Thin-Film Thin Layer Glow</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: Swarm & Fluid Vortices -->
-        <section class="section" data-section="2">
-          <div class="section-inner">
-            <div class="tag-badge" data-magnetic>
-              <span>03 // VECTOR FIELD</span>
-            </div>
-            <h2 class="section-title">
-              2,500 Quantum <br/>
-              <span class="gradient-text">Micro-Nodes</span>
-            </h2>
-            <p class="lead-text">
-              Hover to trigger fluid ripples and watch the quantum swarm execute divergence-free Curl noise motion. Notice the continuous spectral shift across the visible color spectrum.
-            </p>
-            <div class="cards-grid">
-              <div class="glass-card" data-magnetic>
-                <div class="card-num">NODES</div>
-                <div class="card-val">2.5K</div>
-                <div class="card-label">GPU Point Sprites</div>
-              </div>
-              <div class="glass-card" data-magnetic>
-                <div class="card-num">PHYSICS</div>
-                <div class="card-val">Curl</div>
-                <div class="card-label">Divergence-free Swirl</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 4: Immersion & Case Studies (Center Aligned) -->
-        <section class="section align-center" data-section="3">
-          <div class="section-inner">
-            <div class="tag-badge" data-magnetic>
-              <span>04 // CONVERGENCE</span>
-            </div>
-            <h2 class="hero-title" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">
-              Interactive <br/>
-              <span class="gradient-text">Immersion</span>
-            </h2>
-            <p class="lead-text">
-              Click and drag to freely orbit the camera. Move your cursor to generate fluid ripples across the post-processing buffer, and toggle ambient synthesis.
-            </p>
-            <div class="interactive-prompt-pills">
-              <span class="pill">[ DRAG CANVAS ]</span>
-              <span class="pill">[ MOVE MOUSE // FLUID RIPPLE ]</span>
-              <span class="pill">[ ACTIVATE AUDIO ]</span>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <!-- Floating Interactive Controls Dock -->
-      <nav class="floating-dock">
-        <button id="btn-bloom" class="dock-btn active" data-magnetic title="Toggle HDR Bloom Pass">
-          <span>✨</span>
-          <span>Bloom</span>
-        </button>
-        <button id="btn-wireframe" class="dock-btn" data-magnetic title="Toggle Glass Wireframe Topology">
-          <span>📐</span>
-          <span>Wireframe</span>
-        </button>
-        <div class="dock-separator"></div>
-        <button id="btn-palette" class="dock-btn" data-magnetic title="Switch Spectral Color Palette">
-          <span>🎨</span>
-          <span id="palette-label">Cyan/Violet</span>
-        </button>
-        <button id="btn-reset-cam" class="dock-btn" data-magnetic title="Reset Camera Perspective">
-          <span>↺</span>
-          <span>Reset</span>
-        </button>
-      </nav>
-    </div>
-  </div>
-
-  <script type="module" src="/src/main.js"></script>
+<body>
+    <noscript><p style="background: black; color: white; font-size: 20px; display: inline; font-family: Helvetica, Arial, sans-serif; padding: 10px;">Please enable javascript</p></noscript>
 </body>
 </html>

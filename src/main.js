@@ -6,6 +6,7 @@ import SoundEngine from './utils/Sound.js';
 import MagneticCursor from './utils/Cursor.js';
 import TiltCards from './utils/TiltCards.js';
 import './styles/main.css';
+import projects from './assets/data/projects.json';
 
 // ─── Register GSAP Plugins ──────────────────────────────────
 gsap.registerPlugin(ScrollTrigger);
@@ -227,7 +228,7 @@ window.addEventListener('mousemove', (e) => {
 });
 
 // ─── Live FPS Counter ───────────────────────────────────────
-const fpsCounter = document.getElementById('fps-counter');
+const fpsCounter = document.getElementById('active-fps');
 if (fpsCounter) {
   let frameCount = 0;
   let lastTime = performance.now();
