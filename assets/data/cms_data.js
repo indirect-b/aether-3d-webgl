@@ -6,26 +6,36 @@ window.CMS_DATA = {
     "twitterImage": "https://avatars.githubusercontent.com/u/251779397?v=4"
   },
   "contact": {
-    "bio": "Native Android Developer and Post-Quantum Cryptography Researcher. Change is not the reward for waiting; it is the work of hands that stopped watching and started building.",
+    "bio": "Native Android Developer and Post-Quantum Cryptography Researcher based in New York. Change is not the reward for waiting; it is the work of hands that stopped watching and started building.",
+    "email": "indirectnebula6@gmail.com",
+    "location": "New York, USA",
     "links": [
-      {
-        "name": "GitHub",
-        "url": "https://github.com/indirect-b"
-      },
-      {
-        "name": "Portfolio",
-        "url": "https://indirect-b.is-a.dev/"
-      },
-      {
-        "name": "DEV.to",
-        "url": "https://dev.to/indirectb"
-      },
-      {
-        "name": "Live Chat (PQC)",
-        "url": "https://chatapp-server-1i2a.onrender.com"
-      }
+        {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/taha-azizi-72154a41a/"
+        },
+        {
+            "name": "X / Twitter",
+            "url": "https://x.com/indirect_b"
+        },
+        {
+            "name": "Telegram",
+            "url": "https://t.me/Tek_tokyo"
+        },
+        {
+            "name": "GitHub",
+            "url": "https://github.com/indirect-b"
+        },
+        {
+            "name": "DEV.to",
+            "url": "https://dev.to/indirectb"
+        },
+        {
+            "name": "Live Chat (PQC)",
+            "url": "https://chatapp-server-1i2a.onrender.com"
+        }
     ]
-  },
+},
   "projects": [
     {
       "id": "project-1",
