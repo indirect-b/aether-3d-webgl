@@ -2468,7 +2468,7 @@ uniform float fDensity;
 uniform float fWeight;
 uniform float fClamp;
 
-const int iSamples = 20;
+const int iSamples = 8;
 
 void main() {
     vec2 deltaTextCoord = vUv - lightPos;
